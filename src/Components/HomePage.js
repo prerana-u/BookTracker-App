@@ -25,16 +25,17 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    const el = ref.current;
     gsap.fromTo(
-      el,
+      "#book",
       { scale: 0 },
       {
         scale: 1,
-        duration: 2,
-        scrub: 0.2,
+        duration: 1,
+
         scrollTrigger: {
-          trigger: el,
+          trigger: "#hero",
+          start: "top bottom-=100",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -122,26 +123,17 @@ export default function HomePage() {
           </form>
         </div>
         <div id="hero">
-          <h2 className="font-bold text-4xl text-black ml-3 mt-11 md:text-5xl md:ml-11">
+          <h2 className="font-bold text-3xl text-black ml-3 mt-11 md:text-4xl md:ml-11">
             What will you read next?
           </h2>
           <div
-            className="grid grid-cols-3 grid-rows-2 gap-4"
+            className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px]"
+            id="hero"
             style={{ height: "100vh" }}
           >
-            <div className="relative flex mt-10 mb-14 ml-11 " ref={ref}>
-              <img
-                src={pjo}
-                id="coverimg"
-                className="absolute w-[300px] h-[300px] z-10 left-11"
-              />
-              <img
-                src={pages}
-                className="absolute w-[200px] h-[302px] z-0 left-[108px]"
-              />
-
-              <div className="w-[400px] h-[500px] absolute mb-14 top-[150px] z-[-1] bg-[#FFFCF3] shadow rounded-lg"></div>
-            </div>
+            <BookComp id="book" />
+            <BookComp id="book" />
+            <BookComp id="book" />
           </div>
         </div>
       </div>
