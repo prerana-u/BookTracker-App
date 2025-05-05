@@ -9,18 +9,42 @@ export default function BookComp(props) {
   const [data, setData] = useState([]);
   const [desc, setDesc] = useState("");
   const [author, setAuthor] = useState("");
-  const fetchbookddata = () => {
-    // console.log(props.name);
-    const url1 = `https://www.googleapis.com/books/v1/volumes?q=${props.name}&key=AIzaSyDe8Rz-e1Rc6OM4GUTFdQBhhEZ1sX2dz8w`;
-    //  console.log(url1);
-    return axios.get(url1).then((res) => {
-      setData(res.data.items);
-      setDesc(res.data.items[0].volumeInfo.description);
-      setAuthor(res.data.items[0].volumeInfo.authors[0]);
-      //  console.log(res.data.items[0].volumeInfo.description);
-    });
+  // const url1 =
+  //   props.author !== undefined
+  //     ? `https://www.googleapis.com/books/v1/volumes?q=intitle:${
+  //         props.name
+  //       }+inauthor:${
+  //         props.author.split(" ")[0]
+  //       }&langRestrict=en&printType=books&maxResults=5&key=AIzaSyDe8Rz-e1Rc6OM4GUTFdQBhhEZ1sX2dz8w`
+  //     : `https://www.googleapis.com/books/v1/volumes?q=intitle:${props.name}&langRestrict=en&printType=books&maxResults=5&key=AIzaSyDe8Rz-e1Rc6OM4GUTFdQBhhEZ1sX2dz8w`;
+  // const fetchbookddata = () => {
+  //   // console.log(props.name);
+
+  //   //  console.log(url1);
+  //   return axios.get(url1).then((res) => {
+  //     setData(res.data.items);
+  //     setDesc(res.data.items[0].volumeInfo.description);
+  //     setAuthor(res.data.items[0].volumeInfo.authors[0]);
+  //     //  console.log(res.data.items[0].volumeInfo.description);
+  //   });
+  // };
+  const fetchbookddata = async () => {
+    try {
+      const res = await axios.get(`http://localhost:3001/getbookdata`, {
+        params: {
+          title: props.name,
+          ...(props.author && { author: props.author }),
+        },
+      });
+
+      setData(res.data);
+      setDesc(res.data.description);
+      setAuthor(res.data.authors[0]);
+      console.log(res.data);
+    } catch (err) {
+      console.error("Error!! Book not found");
+    }
   };
-  console.log(desc);
   return (
     <div
       className="relative flex mt-10 mb-14 ml-11 "

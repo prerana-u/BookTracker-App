@@ -17,12 +17,12 @@ export default function HomePage() {
 
   const fetchData = async () => {
     return await axios
-      .get("http://localhost:3000/getbooks")
+      .get("http://localhost:3001/getbooks")
       .then((res) => {
         const data = res.data;
         setBookData(data);
-        setrandomNum(Math.floor(Math.random() * 121));
-        setrandomNum1(Math.floor(Math.random() * 120));
+        setrandomNum(Math.floor(Math.random() * 417));
+        setrandomNum1(Math.floor(Math.random() * 416));
       })
       .catch((error) => console.log(error));
   };
@@ -164,7 +164,6 @@ export default function HomePage() {
             </a>
           </form>
         </div>
-        <div></div>
 
         <div id="hero">
           <h2 className="font-bold text-3xl text-black ml-3 mt-11 md:text-4xl md:ml-11">
@@ -180,6 +179,7 @@ export default function HomePage() {
                 <>
                   <BookComp
                     name={data.name}
+                    author={data.author}
                     cover={data.cover}
                     genre={data.genre}
                   />
@@ -200,7 +200,6 @@ export default function HomePage() {
             id="book1"
           >
             {bookdata.slice(randomNum1, randomNum1 + 3).map((data) => {
-              console.log(data.name);
               return (
                 <>
                   <BookComp

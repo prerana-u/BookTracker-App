@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const axios = require("axios");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const GOOGLE_BOOKS_API = "https://www.googleapis.com/books/v1/volumes";
+require("dotenv").config(); // at the top of your main file
+const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
+const hapibooksapiKey = process.env.HAPI_BOOKS_API_KEY;
 mongoose.set("strictQuery", false);
 
 app.use(express.json());
 // Connect to the MongoDB database
-mongoose.connect("mongodb://localhost:27017/BookDatabase", {
+mongoose.connect("mongodb://0.0.0.0:27017/BookDatabase", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -50,17 +53,27 @@ const BookSchema = new mongoose.Schema({
   },
 });
 
+const BookSchema1 = new mongoose.Schema({
+  googleId: { type: String, unique: true },
+  title: String,
+  authors: [String],
+  description: String,
+  thumbnail: String,
+  cachedAt: { type: Date, default: Date.now },
+});
+
+BookSchema1.index({ title: 1, authors: 1 });
 const Book = mongoose.model("Book", BookSchema);
+const CachedBook = mongoose.model("CachedBook", BookSchema1);
 
 const getBooks = async () => {
   try {
     // using async-await to get the data from the URL
     const response = await axios.get(
-      "https://hapi-books.p.rapidapi.com/nominees/horror/2023",
+      "https://hapi-books.p.rapidapi.com/nominees/Suspense/2021",
       {
         headers: {
-          "X-RapidAPI-Key":
-            "6e13be06cemshb5bf17623350800p1b1dbajsn8cf3c79da7a9",
+          "X-RapidAPI-Key": hapibooksapiKey,
           "X-RapidAPI-Host": "hapi-books.p.rapidapi.com",
         },
       }
@@ -72,7 +85,7 @@ const getBooks = async () => {
         cover: response.data[i]["cover"],
         bookid: response.data[i]["book_id"],
         author: response.data[i]["author"],
-        genre: "Horror",
+        genre: "Mystery & Thriller",
       });
       post
         .save()
@@ -94,7 +107,170 @@ const getBooks = async () => {
   }
 };
 
-getBooks();
+function normalize(str) {
+  return str
+    ?.toLowerCase()
+    .replace(/[^a-z0-9]/gi, "")
+    .trim();
+}
+
+function isMatch(volumeInfo, title, author) {
+  const normalizedTitle = normalize(volumeInfo.title);
+  const normalizedAuthorList = (volumeInfo.authors || []).map(normalize);
+
+  const targetTitle = normalize(title);
+  const targetAuthor = normalize(author);
+
+  const titleMatch =
+    normalizedTitle.includes(targetTitle) ||
+    targetTitle.includes(normalizedTitle);
+  const authorMatch =
+    !author || normalizedAuthorList.some((a) => a.includes(targetAuthor));
+
+  return titleMatch && authorMatch;
+}
+
+async function fetchBook(title, author) {
+  // First, try to find it in the local DB
+  const dbQuery = {
+    title: new RegExp(`^${title}$`, "i"),
+  };
+  // if (author) {
+  //   dbQuery.authors = { $in: [new RegExp(author, "i")] };
+  // }
+  console.log("DB Query", dbQuery);
+  const existingBook = await CachedBook.findOne(dbQuery);
+  if (existingBook) {
+    console.log("Found From Cache");
+    return existingBook;
+  }
+
+  // Fetch from Google Books
+  let query = `intitle:"${title}"`;
+  if (author) query += `+inauthor:"${author.split(" ")[0]}"`;
+
+  const response = await axios.get(
+    `${GOOGLE_BOOKS_API}?q=${encodeURIComponent(
+      query
+    )}&langRestrict=en&printType=books&maxResults=5&key=${apiKey}`
+  );
+  const items = response.data.items || [];
+  const validItems = items.filter((item) => item.volumeInfo?.description);
+  // Find the best match from the results
+  const bestMatch = validItems.find((item) =>
+    isMatch(item.volumeInfo, title, author)
+  );
+  if (!bestMatch) return null;
+
+  const info = bestMatch.volumeInfo;
+
+  // Prepare data
+  const bookData = {
+    googleId: bestMatch.id,
+    title: info.title,
+    authors: info.authors || [],
+    description: info.description || "",
+    thumbnail: info.imageLinks?.thumbnail || "",
+  };
+
+  // Save with upsert
+  const savedBook = await CachedBook.findOneAndUpdate(
+    { googleId: bestMatch.id },
+    { $set: bookData },
+    { new: true, upsert: true, setDefaultsOnInsert: true, strict: false }
+  );
+  console.log(info.title, " Saved to DB");
+  return savedBook;
+}
+// async function fetchBook(title, author) {
+//   const query = {
+//     title: new RegExp(`^${title}$`, "i"),
+//   };
+
+//   if (author) {
+//     query.authors = { $in: [new RegExp(author, "i")] };
+//   }
+
+//   const existingBook = await Book.findOne(query);
+//   if (existingBook) {
+//     console.log("Found From Cache");
+//     return existingBook;
+//   }
+
+//   // Build Google Books API query
+//   let apiQuery = `intitle:"${title}"`;
+//   if (author) {
+//     apiQuery += `+inauthor:"${author}"`;
+//   }
+
+//   const response = await axios.get(
+//     `${GOOGLE_BOOKS_API}?q=${encodeURIComponent(
+//       apiQuery
+//     )}&langRestrict=en&printType=books&maxResults=5&key=AIzaSyDe8Rz-e1Rc6OM4GUTFdQBhhEZ1sX2dz8w`
+//   );
+//   console.log("Authors", author);
+//   const item = response.data.items?.[0];
+//   if (!item) return null;
+
+//   const info = item.volumeInfo;
+
+//   const bookData = {
+//     googleId: item.id,
+//     title: info.title,
+//     authors: info.authors || [],
+//     description: info.description || "",
+//     thumbnail: info.imageLinks?.thumbnail || "",
+//   };
+
+//   const newBook = await CachedBook.findOneAndUpdate(
+//     { googleId: item.id },
+//     { $set: bookData },
+//     {
+//       new: true,
+//       upsert: true,
+//       setDefaultsOnInsert: true, // ✅ applies cachedAt default
+//     }
+//   );
+//   console.log(info.title, " Saved to DB");
+//   return newBook;
+// }
+
+const getNewBooks = async () => {
+  try {
+    // using async-await to get the data from the URL
+    const response = await axios.get(
+      "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&orderBy=newest&maxResults=10&key=AIzaSyDe8Rz-e1Rc6OM4GUTFdQBhhEZ1sX2dz8w"
+    );
+    console.log(response);
+    for (let i = 0; i < response.items.length; i++) {
+      const post = new Book({
+        name: response.data[i]["name"],
+        cover: response.data[i]["cover"],
+        bookid: response.data[i]["book_id"],
+        author: response.data[i]["author"],
+        genre: "",
+      });
+      post
+        .save()
+        .then(() => {
+          // res.send("Successfully saved form data to the database");
+          console.log("Sucess");
+        })
+        .catch((error) => {
+          console.error(error);
+          //  res.send("Error saving form data to the database");
+        });
+    }
+  } catch (err) {
+    if (err.response) {
+      console.log(err.response.status);
+      console.log(err.response.statusText);
+      console.log(err.response.data);
+    }
+  }
+};
+
+// getBooks();
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -125,6 +301,20 @@ app.get("/getbooks", async (req, res) => {
     res.send(users);
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+app.get("/getbookdata", async (req, res) => {
+  const { title, author } = req.query;
+  if (!title) return res.status(400).json({ error: "Missing title" });
+
+  try {
+    const book = await fetchBook(title, author);
+    if (!book) return res.status(404).json({ error: "Book not found" });
+
+    res.json(book);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" + err });
   }
 });
 
