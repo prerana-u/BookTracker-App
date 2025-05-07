@@ -138,7 +138,7 @@ async function fetchBook(title, author) {
   // if (author) {
   //   dbQuery.authors = { $in: [new RegExp(author, "i")] };
   // }
-  console.log("DB Query", dbQuery);
+
   const existingBook = await CachedBook.findOne(dbQuery);
   if (existingBook) {
     console.log("Found From Cache");
@@ -147,15 +147,25 @@ async function fetchBook(title, author) {
 
   // Fetch from Google Books
   let query = `intitle:"${title}"`;
-  if (author) query += `+inauthor:"${author.split(" ")[0]}"`;
 
+  if (author) query += `+inauthor:"${author.split(" ")[0]}"`;
+  console.log(
+    "Query",
+    `${GOOGLE_BOOKS_API}?q=${encodeURIComponent(
+      query
+    )}&langRestrict=en&printType=books&maxResults=5&key=${apiKey}`
+  );
   const response = await axios.get(
     `${GOOGLE_BOOKS_API}?q=${encodeURIComponent(
       query
     )}&langRestrict=en&printType=books&maxResults=5&key=${apiKey}`
   );
+  console.log(title, " Fetched from Google Books API");
   const items = response.data.items || [];
-  const validItems = items.filter((item) => item.volumeInfo?.description);
+
+  const validItems = items.filter(
+    (item) => item.volumeInfo?.description && item.volumeInfo?.language === "en"
+  );
   // Find the best match from the results
   const bestMatch = validItems.find((item) =>
     isMatch(item.volumeInfo, title, author)
@@ -182,58 +192,6 @@ async function fetchBook(title, author) {
   console.log(info.title, " Saved to DB");
   return savedBook;
 }
-// async function fetchBook(title, author) {
-//   const query = {
-//     title: new RegExp(`^${title}$`, "i"),
-//   };
-
-//   if (author) {
-//     query.authors = { $in: [new RegExp(author, "i")] };
-//   }
-
-//   const existingBook = await Book.findOne(query);
-//   if (existingBook) {
-//     console.log("Found From Cache");
-//     return existingBook;
-//   }
-
-//   // Build Google Books API query
-//   let apiQuery = `intitle:"${title}"`;
-//   if (author) {
-//     apiQuery += `+inauthor:"${author}"`;
-//   }
-
-//   const response = await axios.get(
-//     `${GOOGLE_BOOKS_API}?q=${encodeURIComponent(
-//       apiQuery
-//     )}&langRestrict=en&printType=books&maxResults=5&key=AIzaSyDe8Rz-e1Rc6OM4GUTFdQBhhEZ1sX2dz8w`
-//   );
-//   console.log("Authors", author);
-//   const item = response.data.items?.[0];
-//   if (!item) return null;
-
-//   const info = item.volumeInfo;
-
-//   const bookData = {
-//     googleId: item.id,
-//     title: info.title,
-//     authors: info.authors || [],
-//     description: info.description || "",
-//     thumbnail: info.imageLinks?.thumbnail || "",
-//   };
-
-//   const newBook = await CachedBook.findOneAndUpdate(
-//     { googleId: item.id },
-//     { $set: bookData },
-//     {
-//       new: true,
-//       upsert: true,
-//       setDefaultsOnInsert: true, // ✅ applies cachedAt default
-//     }
-//   );
-//   console.log(info.title, " Saved to DB");
-//   return newBook;
-// }
 
 const getNewBooks = async () => {
   try {
@@ -303,6 +261,15 @@ app.get("/getbooks", async (req, res) => {
     res.status(500).send(error);
   }
 });
+app.get("/getbooksbygenre", async (req, res) => {
+  const { genre } = req.query;
+  try {
+    const books = await Book.find({ genre: genre });
+    res.send(books);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 app.get("/getbookdata", async (req, res) => {
   const { title, author } = req.query;
@@ -310,7 +277,7 @@ app.get("/getbookdata", async (req, res) => {
 
   try {
     const book = await fetchBook(title, author);
-    if (!book) return res.status(404).json({ error: "Book not found" });
+    if (!book) return res.status(404).json({ error: "Book Not Found" });
 
     res.json(book);
   } catch (err) {

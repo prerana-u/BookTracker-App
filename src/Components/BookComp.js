@@ -40,17 +40,16 @@ export default function BookComp(props) {
       setData(res.data);
       setDesc(res.data.description);
       setAuthor(res.data.authors[0]);
-      console.log(res.data);
     } catch (err) {
       console.error("Error!! Book not found");
     }
   };
+
+  useEffect(() => {
+    fetchbookddata();
+  }, []);
   return (
-    <div
-      className="relative flex mt-10 mb-14 ml-11 "
-      id={props.id}
-      onLoad={fetchbookddata}
-    >
+    <div className="relative flex mt-10 mb-14 ml-11 " id={props.id}>
       <img
         src={props.cover}
         id="coverimg"
@@ -82,7 +81,7 @@ export default function BookComp(props) {
           {props.genre}
         </p>
         <div className="scrollable-div text-sm text-black text-justify p-[20px]">
-          <div className="lg:w-[370px] w-[250px] overflow-y-scroll h-[150px] p-[20px]">
+          <div className="lg:w-[370px] w-[250px] overflow-y-auto h-[150px] px-4">
             {desc}
           </div>
         </div>
