@@ -9,6 +9,7 @@ export default function BookComp(props) {
   const [data, setData] = useState([]);
   const [desc, setDesc] = useState("");
   const [author, setAuthor] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
   // const url1 =
   //   props.author !== undefined
   //     ? `https://www.googleapis.com/books/v1/volumes?q=intitle:${
@@ -40,6 +41,7 @@ export default function BookComp(props) {
       setData(res.data);
       setDesc(res.data.description);
       setAuthor(res.data.authors[0]);
+      setThumbnail(res.data.thumbnail);
     } catch (err) {
       console.error("Error!! Book not found");
     }
@@ -47,7 +49,7 @@ export default function BookComp(props) {
 
   useEffect(() => {
     fetchbookddata();
-  }, []);
+  }, [props.name]);
   return (
     <div className="relative flex mt-10 mb-14 ml-11 " id={props.id}>
       <img

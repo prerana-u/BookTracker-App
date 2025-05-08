@@ -24,7 +24,7 @@ export default function HomePage() {
         const data = res.data;
         setBookData(data);
 
-        setrandomNum(Math.floor(Math.random() * 417));
+        setrandomNum(Math.floor(Math.random() * res.data.length));
       })
       .catch((error) => console.log(error));
   };
@@ -210,7 +210,7 @@ export default function HomePage() {
         <div id="topbooks">
           <div className="flex px-5 pl-12 mb-4">
             <h2 className="font-bold text-3xl text-black  lg:mt-16 mt-[1200px] md:text-4xl ">
-              Top Books This Week
+              Top Books By Genre
             </h2>
             <select
               className="w-[200px] h-[40px] p-2 rounded-md bg-[#FFFCF3] border-solid border border-black text-black  text-lg ml-auto lg:mt-16"
@@ -220,6 +220,8 @@ export default function HomePage() {
               <option value="Fantasy">Fantasy</option>
               <option value="Romance">Romance</option>
               <option value="Fiction">Fiction</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Thriller">Thriller</option>
             </select>
           </div>
           <div
