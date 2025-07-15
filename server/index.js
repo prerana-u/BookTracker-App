@@ -5,6 +5,8 @@ const port = process.env.PORT || 3001;
 const axios = require("axios");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+// const { createMongoUser } = require("./userController");
 const GOOGLE_BOOKS_API = "https://www.googleapis.com/books/v1/volumes";
 require("dotenv").config(); // at the top of your main file
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
@@ -66,6 +68,16 @@ BookSchema1.index({ title: 1, authors: 1 });
 const Book = mongoose.model("Book", BookSchema);
 const CachedBook = mongoose.model("CachedBook", BookSchema1);
 
+const userSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+userSchema.index({ username: 1 }, { unique: true });
+const User = mongoose.model("User", userSchema);
 const getBooks = async () => {
   try {
     // using async-await to get the data from the URL
@@ -228,6 +240,42 @@ const getNewBooks = async () => {
   }
 };
 
+const insertUser = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const newUser = new User({ username, password });
+    await newUser.save();
+    res
+      .status(201)
+      .json({ message: "User inserted into users collection", data: newUser });
+  } catch (err) {
+    console.error("Insert failed:", err);
+    res.status(500).json({ error: "Insert failed", details: err.message });
+  }
+};
+
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const isMatch = password === user.password;
+    if (!isMatch) return res.status(401).json({ error: "Invalid password" });
+
+    // const token = jwt.sign(
+    //   { id: user._id, username: user.username },
+    //   { expiresIn: "1h" }
+    // );
+    const token = user._id + user.username;
+    res.json({ message: "Login successful", token });
+  } catch (err) {
+    res.status(500).json({ error: "Login failed", details: err.message });
+  }
+};
+
 // getBooks();
 
 app.use(cors());
@@ -284,6 +332,9 @@ app.get("/getbookdata", async (req, res) => {
     res.status(500).json({ error: "Server error" + err });
   }
 });
+
+app.post("/create-user", insertUser);
+app.post("/login", loginUser);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

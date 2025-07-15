@@ -17,3 +17,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Thin scrollbar */
+::-webkit-scrollbar {
+  width: 6px; /* Width for vertical scrollbar */
+  height: 6px; /* Height for horizontal scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff0c8; /* Track background */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Thumb */
+::-webkit-scrollbar-thumb {
+  background: #537D3D; /* Thumb background */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Hover effect on thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: #537D3D; /* Thumb hover background */
+}

@@ -5,6 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import BookComp from "./BookComp";
 import axios from "axios";
+import LoginComp from "./LoginComp";
+import SignInComp from "./SignInComp";
 
 export default function HomePage() {
   const ref = useRef([]);
@@ -13,6 +15,7 @@ export default function HomePage() {
   const [randomNum, setrandomNum] = useState(0);
   const [randomNum1, setrandomNum1] = useState(0);
   const [selectedGenre, setSelectedGenre] = useState("Horror");
+  const [isLogin, setIsLogin] = useState(true);
   ref.current = [];
   //Register Scroll Trigger
   gsap.registerPlugin(ScrollTrigger);
@@ -124,64 +127,11 @@ export default function HomePage() {
             Discover, Connect, and Explore the World of Books
           </h2>
         </div>
-
-        <div class=" flex justify-center xl:absolute xl:top-36 xl:left-[950px]">
-          <form class="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 h-[420px] w-[350px] md:h-[450px]  min-[320px]:h-[420px] min-[320px]:w-[300px] md:w-[450px]">
-            <h2 className="font-bold self-center text-center md:text-2xl text-lg  mb-9">
-              Join us to discover a wide range of books!
-            </h2>
-            <div class="mb-4">
-              <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="username"
-              >
-                Username
-              </label>
-              <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Username"
-              />
-            </div>
-            <div class="mb-6">
-              <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="password"
-              >
-                Password
-              </label>
-              <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="******************"
-              />
-              <a
-                class="inline-block align-baseline font-bold text-gray-500 hover:text-blue-800 mt-4 text-xs"
-                href="#"
-              >
-                Forgot Password?
-              </a>
-            </div>
-            <div class="flex items-center justify-between">
-              <button
-                class="bg-[#FFD666] hover:bg-[#DE971E] hover:text-white text-black  border-[#DE971E] w-full border-1 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-              >
-                SIGN IN
-              </button>
-            </div>
-
-            <br />
-            <a
-              class=" align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4"
-              href="#"
-            >
-              New User? Create Account
-            </a>
-          </form>
-        </div>
+        {isLogin ? (
+          <LoginComp setIsLogin={setIsLogin} />
+        ) : (
+          <SignInComp setIsLogin={setIsLogin} />
+        )}
 
         <div id="hero">
           <h2 className="font-bold text-3xl text-black ml-3 mt-11 md:text-4xl md:ml-11">
