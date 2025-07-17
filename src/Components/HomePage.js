@@ -6,7 +6,7 @@ import Lenis from "@studio-freight/lenis";
 import BookComp from "./BookComp";
 import axios from "axios";
 import LoginComp from "./LoginComp";
-import SignInComp from "./SignInComp";
+import SignInComp from "./SignUpComp";
 
 export default function HomePage() {
   const ref = useRef([]);
