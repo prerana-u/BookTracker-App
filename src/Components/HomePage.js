@@ -1,4 +1,3 @@
-import homebg from "../Images/homebg.png";
 import { gsap } from "gsap";
 import { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,6 +6,7 @@ import BookComp from "./BookComp";
 import axios from "axios";
 import LoginComp from "./LoginComp";
 import SignInComp from "./SignUpComp";
+import NavBar from "./NavBar";
 
 export default function HomePage() {
   const ref = useRef([]);
@@ -107,36 +107,54 @@ export default function HomePage() {
   return (
     <div>
       <div className="flex-initial relative">
-        <div className="flex-initial bg-white h-16 ">
-          <p
-            className="bg-gradient-to-r from-[#333D2E] to-[#537D3D] inline-block text-transparent bg-clip-text font-bold text-2xl align-middle"
-            style={{ marginTop: "15px", marginLeft: "15px" }}
+        <div
+          className="bg-cover bg-no-repeat bg-center "
+          style={{
+            backgroundImage: "url('/Images/homebg.png')",
+            height: "600px",
+          }}
+        >
+          <NavBar />
+
+          <h2
+            className="text-white text-lg leading-9 sm:text-[44px] sm:leading-relaxed font-bold text-center px-6 w-[400px] sm:w-[600px] md:w-[650px] mt-20 sm:mt-32 ml-6 sm:ml-12 md:ml-16 lg:ml-20 xl:ml-24 2xl:ml-28"
+            style={{
+              textShadow: "7px 7px 4px rgba(0, 0, 0, 0.88)",
+            }}
           >
-            BookMarx
-          </p>
-        </div>
-        <img
-          className="object-cover"
-          src={homebg}
-          alt="Background"
-          style={{ width: "100%" }}
-        />
-
-        <div className="absolute inset-0 flex top-24 left-44 sm:top-32 sm:left-56 w-[200px] sm:w-[390px] min-[320px]:left-32 min-[320px]:top-[80px]">
-          <h2 className="text-white text-lg leading-9 sm:text-[40px] sm:leading-relaxed font-bold text-center">
-            Discover, Connect, and Explore the World of Books
+            Discover, Connect, and Explore the World of{" "}
+            <span className="text-[#13B1DF]"> Books </span>
           </h2>
-        </div>
-        {isLogin ? (
-          <LoginComp setIsLogin={setIsLogin} />
-        ) : (
-          <SignInComp setIsLogin={setIsLogin} />
-        )}
 
+          <div className="flex items-center bg-white border-4 border-[#1282A2] rounded-[6px] px-3 py-2 w-full max-w-md   ml-6 sm:ml-12 md:ml-16 lg:ml-20 xl:ml-24 2xl:ml-52 mt-8">
+            <input
+              type="text"
+              placeholder="Search books..."
+              className="flex-grow bg-transparent outline-none text-black placeholder-gray-400"
+            />
+            <svg
+              className="w-5 h-5 text-[#1282A2] ml-2"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </div>
+
+          {isLogin ? (
+            <LoginComp setIsLogin={setIsLogin} />
+          ) : (
+            <SignInComp setIsLogin={setIsLogin} />
+          )}
+        </div>
         <div id="hero">
           <h2 className="font-bold text-3xl text-black ml-3 mt-11 md:text-4xl md:ml-11">
             What will you read next?
           </h2>
+
           <div
             className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-screen"
             id="book"
@@ -153,17 +171,15 @@ export default function HomePage() {
                 </>
               );
             })}
-            {/* <BookComp id="book" />
-            <BookComp id="book" /> */}
           </div>
         </div>
-        <div id="topbooks">
+        <div id="topbooks" className="bg-[#3E8FD6]">
           <div className="flex px-5 pl-12 mb-4">
             <h2 className="font-bold text-3xl text-black  lg:mt-16 mt-[1200px] md:text-4xl ">
               Top Books By Genre
             </h2>
             <select
-              className="w-[200px] h-[40px] p-2 rounded-md bg-[#FFFCF3] border-solid border border-black text-black  text-lg ml-auto lg:mt-16"
+              className="w-[200px] h-[40px] p-2 rounded-md bg-[#ffffff] border-solid border border-black text-black  text-lg ml-auto lg:mt-16"
               onChange={(e) => setSelectedGenre(e.target.value)}
             >
               <option value="Horror">Horror</option>

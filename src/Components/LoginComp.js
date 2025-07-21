@@ -22,8 +22,8 @@ export default function LoginComp(props) {
     }
   };
   return (
-    <div class=" flex justify-center xl:absolute xl:top-36 xl:left-[950px]">
-      <form class="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 h-[420px] w-[350px] md:h-[450px]  min-[320px]:h-[420px] min-[320px]:w-[300px] md:w-[450px]">
+    <div class=" flex justify-center xl:absolute xl:top-24 xl:left-[950px]">
+      <form class="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 h-[400px] w-[350px] md:h-[430px]  min-[320px]:h-[400px] min-[320px]:w-[300px] md:w-[450px]">
         <h2 className="font-bold self-center text-center md:text-2xl text-lg  mb-9">
           Welcome Back! Sign in to continue
         </h2>
@@ -67,7 +67,7 @@ export default function LoginComp(props) {
         </div>
         <div class="flex items-center justify-between">
           <button
-            class="bg-[#FFD666] hover:bg-[#DE971E] hover:text-white text-black  border-[#DE971E] w-full border-1 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            class="bg-gradient-to-r from-[#2663B3] to-[#57ADD5] text-white  border-[#2663B3] w-full border-1 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
             type="button"
             onClick={handleSubmit}
           >
@@ -75,9 +75,8 @@ export default function LoginComp(props) {
           </button>
         </div>
 
-        <br />
         <button
-          class=" align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 "
+          class=" align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4"
           onClick={() => props.setIsLogin(false)}
         >
           New User? Create Account

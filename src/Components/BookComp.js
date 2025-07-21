@@ -1,6 +1,5 @@
-import pjo from "../Images/Monsters-flat-cover.png";
-import pages from "../Images/pages.png";
-import book_base from "../Images/book_base.png";
+import pages from "../Resources/Images/pages.png";
+import book_base from "../Resources/Images/book_base.png";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
@@ -55,24 +54,27 @@ export default function BookComp(props) {
       <img
         src={props.cover}
         id="coverimg"
-        className="absolute lg:w-[200px] lg:h-[300px] z-10 lg:left-24 left-20 w-[150px] h-[200px]"
+        alt={props.name ? `Cover of ${props.name}` : "Book cover"}
+        className="absolute lg:w-[200px] lg:h-[300px] z-20 lg:left-24 left-20 w-[150px] h-[200px]"
       />
       <img
         src={pages}
-        className="absolute lg:w-[200px] lg:h-[302px] z-0 lg:left-[108px] w-[100px] h-[202px] left-[137px]"
+        alt={props.name ? `Cover of ${props.name}` : "Book cover"}
+        className="absolute lg:w-[200px] lg:h-[302px] z-10 lg:left-[108px] w-[100px] h-[202px] left-[137px]"
       />
       <img
         src={book_base}
+        alt={props.name ? `Cover of ${props.name}` : "Book cover"}
         className="absolute lg:w-[360px] w-[260px] h-[50px] z-0 left-[20px] lg:top-[270px] top-[170px]"
       />
 
-      <div className="lg:w-[400px] lg:h-[500px] w-[300px] h-[400px] absolute mb-14 top-[150px] z-[-1] bg-[#FFFCF3] shadow rounded-lg">
+      <div className="lg:w-[400px] lg:h-[500px] w-[300px] h-[400px] absolute mb-14 top-[150px] z-[-1] bg-[#ffffff] shadow rounded-lg">
         <p id="title" className="text-2xl font-bold text-center lg:mt-52 mt-28">
           {props.name}
         </p>
         <p
           id="author"
-          className="text-lg font-bold text-center mt-2 text-[#537D3D]"
+          className="text-lg font-bold text-center mt-2 text-[#0E418D]"
         >
           {author}
         </p>

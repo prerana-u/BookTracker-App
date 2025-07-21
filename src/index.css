@@ -9,7 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #EAF0E4;
+  background-color: #ffffff;
 }
 
 
@@ -26,17 +26,17 @@ code {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #fff0c8; /* Track background */
+  background: #e0e0e0; /* Track background */
   border-radius: 10px; /* Rounded corners */
 }
 
 /* Thumb */
 ::-webkit-scrollbar-thumb {
-  background: #537D3D; /* Thumb background */
+  background: #0E418D; /* Thumb background */
   border-radius: 10px; /* Rounded corners */
 }
 
 /* Hover effect on thumb */
 ::-webkit-scrollbar-thumb:hover {
-  background: #537D3D; /* Thumb hover background */
+  background: #0E418D; /* Thumb hover background */
 }
