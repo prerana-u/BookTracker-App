@@ -9,6 +9,7 @@ import Lenis from "@studio-freight/lenis";
 
 const Dashboard = () => {
   const [bookdata, setBookData] = useState([]);
+  const [hovered, setHovered] = useState(false);
   const fetchData = async () => {
     return await axios
       .get("http://localhost:3001/getbooks")
@@ -48,6 +49,9 @@ const Dashboard = () => {
       }
     );
   }, []);
+  useEffect(() => {
+    console.log(hovered);
+  }, [hovered]);
   return (
     <div className="dashboard-container">
       <NavBar />
@@ -71,14 +75,13 @@ const Dashboard = () => {
             >
               {bookdata.slice(0, 3).map((data) => {
                 return (
-                  <>
-                    <BookComp
-                      name={data.name}
-                      author={data.author}
-                      cover={data.cover}
-                      genre={data.genre}
-                    />
-                  </>
+                  <BookComp
+                    name={data.name}
+                    author={data.author}
+                    cover={data.cover}
+                    genre={data.genre}
+                    hovered={hovered}
+                  />
                 );
               })}
             </div>

@@ -9,6 +9,7 @@ export default function BookComp(props) {
   const [desc, setDesc] = useState("");
   const [author, setAuthor] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [hovered, setHovered] = useState(false);
   // const url1 =
   //   props.author !== undefined
   //     ? `https://www.googleapis.com/books/v1/volumes?q=intitle:${
@@ -50,43 +51,63 @@ export default function BookComp(props) {
     fetchbookddata();
   }, [props.name]);
   return (
-    <div className="relative flex mt-10 mb-14 ml-11 " id={props.id}>
-      <img
-        src={props.cover}
-        id="coverimg"
-        alt={props.name ? `Cover of ${props.name}` : "Book cover"}
-        className="absolute lg:w-[200px] lg:h-[300px] z-20 lg:left-24 left-20 w-[150px] h-[200px]"
-      />
-      <img
-        src={pages}
-        alt={props.name ? `Cover of ${props.name}` : "Book cover"}
-        className="absolute lg:w-[200px] lg:h-[302px] z-10 lg:left-[108px] w-[100px] h-[202px] left-[137px]"
-      />
-      <img
-        src={book_base}
-        alt={props.name ? `Cover of ${props.name}` : "Book cover"}
-        className="absolute lg:w-[360px] w-[260px] h-[50px] z-0 left-[20px] lg:top-[270px] top-[170px]"
-      />
-
-      <div className="lg:w-[400px] lg:h-[500px] w-[300px] h-[400px] absolute mb-14 top-[150px] z-[-1] bg-[#ffffff] shadow rounded-lg">
-        <p id="title" className="text-2xl font-bold text-center lg:mt-52 mt-28">
-          {props.name}
-        </p>
-        <p
-          id="author"
-          className="text-lg font-bold text-center mt-2 text-[#0E418D]"
+    <div
+      className="relative w-[340px] h-[285px] mx-auto cursor-pointer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div
+        className={` transition-opacity duration-500 ease-in-out ${
+          props.hovered ? "opacity-0" : "opacity-100"
+        } `}
+      >
+        <div className="relative flex mt-10 mb-14 ml-11 " id={props.id}>
+          <img
+            src={props.cover}
+            id="coverimg"
+            alt={props.name ? `Cover of ${props.name}` : "Book cover"}
+            className="absolute lg:w-[200px] lg:h-[300px] z-20 lg:left-24 left-20 w-[150px] h-[200px]"
+          />
+          <img
+            src={pages}
+            alt={props.name ? `Cover of ${props.name}` : "Book cover"}
+            className="absolute lg:w-[200px] lg:h-[302px] z-10 lg:left-[108px] w-[100px] h-[202px] left-[137px]"
+          />
+          <img
+            src={book_base}
+            alt={props.name ? `Cover of ${props.name}` : "Book cover"}
+            className="absolute lg:w-[360px] w-[260px] h-[50px] z-0 left-[20px] lg:top-[270px] top-[170px]"
+          />
+        </div>
+        <div
+          className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+            hovered ? "opacity-100" : "opacity-0"
+          } bg-white rounded-lg p-4 text-center`}
         >
-          {author}
-        </p>
-        <p
-          id="author"
-          className="text-md font-bold text-center mt-2 text-[#484a47]"
-        >
-          {props.genre}
-        </p>
-        <div className="scrollable-div text-sm text-black text-justify p-[20px]">
-          <div className="lg:w-[370px] w-[250px] overflow-y-auto h-[150px] px-4">
-            {desc}
+          <div className="lg:w-[400px] lg:h-[500px] w-[300px] h-[400px] absolute mb-14 top-[150px] z-[-1] bg-[#ffffff] shadow rounded-lg">
+            <p
+              id="title"
+              className="text-2xl font-bold text-center lg:mt-52 mt-28"
+            >
+              {props.name}
+            </p>
+            <p
+              id="author"
+              className="text-lg font-bold text-center mt-2 text-[#0E418D]"
+            >
+              {author}
+            </p>
+            <p
+              id="author"
+              className="text-md font-bold text-center mt-2 text-[#484a47]"
+            >
+              {props.genre}
+            </p>
+            <div className="scrollable-div text-sm text-black text-justify p-[20px]">
+              <div className="lg:w-[370px] w-[250px] overflow-y-auto h-[150px] px-4">
+                {desc}
+              </div>
+            </div>
           </div>
         </div>
       </div>

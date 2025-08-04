@@ -16,6 +16,7 @@ export default function HomePage() {
   const [randomNum1, setrandomNum1] = useState(0);
   const [selectedGenre, setSelectedGenre] = useState("Horror");
   const [isLogin, setIsLogin] = useState(true);
+
   ref.current = [];
   //Register Scroll Trigger
   gsap.registerPlugin(ScrollTrigger);
@@ -159,7 +160,7 @@ export default function HomePage() {
             className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-screen"
             id="book"
           >
-            {bookdata.slice(randomNum, randomNum + 3).map((data) => {
+            {bookdata.slice(randomNum, randomNum + 3).map((data, index) => {
               return (
                 <>
                   <BookComp
