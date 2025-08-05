@@ -59,7 +59,7 @@ export default function BookComp(props) {
       <div className={` transition-opacity duration-500 ease-in-out `}>
         <div
           className={`absolute inset-0 z-20 flex items-center justify-center transition-all duration-500 ease-in-out 
-          ${hovered ? "top-5 scale-75" : "top-14 opacity-100 scale-100"}
+          ${hovered ? "top-5 scale-[60%]" : "top-52 opacity-100 scale-100"}
         `}
           id={props.id}
         >
@@ -67,12 +67,12 @@ export default function BookComp(props) {
             src={props.cover}
             id="coverimg"
             alt={props.name ? `Cover of ${props.name}` : "Book cover"}
-            className="absolute z-1 lg:w-[200px] lg:h-[300px]  z-20 lg:left-[4.5rem] left-20 w-[150px] h-[200px]"
+            className="absolute z-1 lg:w-[250px] lg:h-[350px]  z-20 lg:left-12 left-20 w-[150px] h-[250px]"
           />
           <img
             src={pages}
             alt={props.name ? `Cover of ${props.name}` : "Book cover"}
-            className="absolute lg:w-[200px] lg:h-[302px] z-10  lg:left-[82px] w-[100px] h-[202px] left-[137px]"
+            className="absolute lg:w-[250px] lg:h-[352px] z-10  lg:left-[62px] w-[150px] h-[252px] left-[137px]"
           />
           {/* <img
             src={book_base}
