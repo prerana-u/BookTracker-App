@@ -70,7 +70,7 @@ const Dashboard = () => {
               Currently Reading
             </h2>
             <div
-              className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-screen"
+              className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-screen mt-5"
               id="book"
             >
               {bookdata.slice(0, 3).map((data) => {

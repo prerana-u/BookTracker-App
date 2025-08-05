@@ -157,10 +157,10 @@ export default function HomePage() {
           </h2>
 
           <div
-            className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-screen"
+            className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] mt-10"
             id="book"
           >
-            {bookdata.slice(randomNum, randomNum + 3).map((data, index) => {
+            {bookdata.slice(randomNum, randomNum + 4).map((data, index) => {
               return (
                 <>
                   <BookComp
@@ -174,9 +174,9 @@ export default function HomePage() {
             })}
           </div>
         </div>
-        <div id="topbooks" className="bg-[#3E8FD6]">
+        <div id="topbooks" className="bg-[#003D74]">
           <div className="flex px-5 pl-12 mb-4">
-            <h2 className="font-bold text-3xl text-black  lg:mt-16 mt-[1200px] md:text-4xl ">
+            <h2 className="font-bold text-3xl text-white  lg:mt-16 mt-[1200px] md:text-4xl ">
               Top Books By Genre
             </h2>
             <select
@@ -192,11 +192,11 @@ export default function HomePage() {
             </select>
           </div>
           <div
-            className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1  grid-rows-3 gap-y-[600px]"
-            style={{ height: "100vh" }}
+            className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1  grid-rows-3 gap-y-[600px] mt-10"
+            style={{ height: "85vh" }}
             id="book1"
           >
-            {bookdatabyGenre.slice(randomNum1, randomNum1 + 3).map((data) => {
+            {bookdatabyGenre.slice(randomNum1, randomNum1 + 4).map((data) => {
               return (
                 <>
                   <BookComp
