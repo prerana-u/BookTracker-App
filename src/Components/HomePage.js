@@ -27,8 +27,8 @@ export default function HomePage() {
       .then((res) => {
         const data = res.data;
         setBookData(data);
-
-        setrandomNum(Math.floor(Math.random() * res.data.length));
+        console.log(data);
+        // setrandomNum(Math.floor(Math.random() * res.data.length));
       })
       .catch((error) => console.log(error));
   };
@@ -160,7 +160,7 @@ export default function HomePage() {
             className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] mt-10"
             id="book"
           >
-            {bookdata.slice(randomNum, randomNum + 4).map((data, index) => {
+            {bookdata.map((data, index) => {
               return (
                 <>
                   <BookComp
@@ -192,8 +192,7 @@ export default function HomePage() {
             </select>
           </div>
           <div
-            className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1  grid-rows-3 gap-y-[600px] mt-10"
-            style={{ height: "85vh" }}
+            className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] mt-10"
             id="book1"
           >
             {bookdatabyGenre.slice(randomNum1, randomNum1 + 4).map((data) => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
@@ -11,6 +12,7 @@ const GOOGLE_BOOKS_API = "https://www.googleapis.com/books/v1/volumes";
 require("dotenv").config(); // at the top of your main file
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 const hapibooksapiKey = process.env.HAPI_BOOKS_API_KEY;
+const HARDCOVER_API_KEY = process.env.HARDCOVER_API_KEY;
 mongoose.set("strictQuery", false);
 
 app.use(express.json());
@@ -78,6 +80,7 @@ const userSchema = new mongoose.Schema({
 });
 userSchema.index({ username: 1 }, { unique: true });
 const User = mongoose.model("User", userSchema);
+
 const getBooks = async () => {
   try {
     // using async-await to get the data from the URL
@@ -277,8 +280,36 @@ const loginUser = async (req, res) => {
   }
 };
 
-// getBooks();
+// ...existing code...
+const GetBooksFromHardcover = async (bookname) => {
+  const query = `query SearchBooks {
+      search(
+          query: "${bookname}",
+          query_type: "Book",
+          per_page: 1,
+          page: 1
+      ) {
+          results
+      }
+  }`;
 
+  const response = await fetch("https://api.hardcover.app/v1/graphql", {
+    headers: {
+      "content-type": "application/json",
+      authorization: HARDCOVER_API_KEY,
+    },
+    body: JSON.stringify({ query }),
+    method: "POST",
+  });
+
+  const { data } = await response.json();
+  console.log("data", data.search?.results);
+};
+// ...existing code...
+
+// GetBooksFromHardcover("Beach Read");
+
+// ---------------------------------------------- api endpoints ----------------------------------------------
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -304,7 +335,7 @@ app.post("/api/endpoint", (req, res) => {
 
 app.get("/getbooks", async (req, res) => {
   try {
-    const users = await Book.find({});
+    const users = await Book.aggregate([{ $sample: { size: 4 } }]);
     res.send(users);
   } catch (error) {
     res.status(500).send(error);

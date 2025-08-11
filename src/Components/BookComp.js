@@ -2,6 +2,12 @@ import pages from "../Resources/Images/pages.png";
 import book_base from "../Resources/Images/book_base.png";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import horrorIcon from "../Resources/Icons/horrorIcon.png";
+import romanceIcon from "../Resources/Icons/romanceIcon.png";
+import fantasyIcon from "../Resources/Icons/fantasyIcon.png";
+import fictionIcon from "../Resources/Icons/fictionIcon.png";
+import mysteryIcon from "../Resources/Icons/mysteryIcon.png";
+import thrillerIcon from "../Resources/Icons/thrillerIcon.png";
 
 export default function BookComp(props) {
   //Register Scroll Trigger
@@ -10,6 +16,14 @@ export default function BookComp(props) {
   const [author, setAuthor] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [hovered, setHovered] = useState(false);
+  const genreIcons = {
+    horror: horrorIcon,
+    romance: romanceIcon,
+    fiction: fictionIcon,
+    fantasy: fantasyIcon,
+    mystery: mysteryIcon,
+    thriller: thrillerIcon,
+  };
   // const url1 =
   //   props.author !== undefined
   //     ? `https://www.googleapis.com/books/v1/volumes?q=intitle:${
@@ -95,12 +109,21 @@ export default function BookComp(props) {
             <p id="author" className="text-[16px] font-bold text-center mt-2 ">
               {author}
             </p>
-            <p
-              id="author"
-              className="text-[16px] font-bold text-center mt-2 text-[#484a47]"
-            >
-              {props.genre}
-            </p>
+            <div className="flex justify-center items-center mt-2">
+              <img
+                src={genreIcons[props.genre.toLowerCase()]}
+                alt="genreIcon"
+                width={20}
+                height={20}
+              />
+              <p
+                id="genre"
+                className="text-[16px] font-bold text-center  text-[#484a47] ms-1"
+              >
+                {props.genre}
+              </p>
+            </div>
+
             <div className="scrollable-div text-sm text-black text-justify p-[20px]">
               <div className="lg:w-[300px] w-[200px] overflow-y-auto h-[100px] pr-4">
                 {desc}

@@ -39,20 +39,20 @@ export default function SignInComp(props) {
   };
 
   return (
-    <div class=" flex justify-center xl:absolute xl:top-20 xl:left-[950px]">
-      <form class="bg-white shadow-md rounded-xl px-8 pt-6 pb-2 mb-4 h-[440px] w-[350px] md:h-[490px]  min-[320px]:h-[41px] min-[320px]:w-[300px] md:w-[450px]">
+    <div className=" flex justify-center xl:absolute xl:top-20 xl:left-[950px]">
+      <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-2 mb-4 h-[440px] w-[350px] md:h-[490px]  min-[320px]:h-[41px] min-[320px]:w-[300px] md:w-[450px]">
         <h2 className="font-bold self-center text-center md:text-2xl text-lg  mb-9">
           Join us to discover a wide range of books!
         </h2>
-        <div class="mb-4">
+        <div className="mb-4">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 text-sm font-bold mb-2"
             for="username"
           >
             Create New Username
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="text"
             name="username"
@@ -61,15 +61,15 @@ export default function SignInComp(props) {
             onChange={handleChange}
           />
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 text-sm font-bold mb-2"
             for="password"
           >
             Create Password
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
             name="passwordog"
@@ -78,19 +78,19 @@ export default function SignInComp(props) {
             onChange={(e) => setPassword(e.target.value)}
           />
           {/* <a
-                    class="inline-block align-baseline font-bold text-gray-500 hover:text-blue-800 mt-4 text-xs"
+                    className="inline-block align-baseline font-bold text-gray-500 hover:text-blue-800 mt-4 text-xs"
                     href="#"
                   >
                     Forgot Password?
                   </a> */}
           <label
-            class="block text-gray-700 text-sm font-bold mb-2 mt-6"
+            className="block text-gray-700 text-sm font-bold mb-2 mt-6"
             for="password"
           >
             Confirm Password
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
             name="password"
@@ -100,9 +100,9 @@ export default function SignInComp(props) {
           />
           <p className="text-red-400 font-medium text-[14px] mt-2">{message}</p>
         </div>
-        <div class="flex flex-col items-center justify-between">
+        <div className="flex flex-col items-center justify-between">
           <button
-            class="bg-gradient-to-r from-[#2663B3] to-[#57ADD5] text-white  border-[#2663B3] w-full border-1 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+            className="bg-gradient-to-r from-[#2663B3] to-[#57ADD5] text-white  border-[#2663B3] w-full border-1 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
             type="button"
             onClick={handleSubmit}
           >
@@ -111,7 +111,7 @@ export default function SignInComp(props) {
         </div>
 
         <button
-          class=" align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4"
+          className=" align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4"
           onClick={() => props.setIsLogin(true)}
         >
           Existing User? Click here to Sign In

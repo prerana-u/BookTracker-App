@@ -22,20 +22,20 @@ export default function LoginComp(props) {
     }
   };
   return (
-    <div class=" flex justify-center xl:absolute xl:top-24 xl:left-[950px]">
-      <form class="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 h-[400px] w-[350px] md:h-[430px]  min-[320px]:h-[400px] min-[320px]:w-[300px] md:w-[450px]">
+    <div className=" flex justify-center xl:absolute xl:top-24 xl:left-[950px]">
+      <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 h-[400px] w-[350px] md:h-[430px]  min-[320px]:h-[400px] min-[320px]:w-[300px] md:w-[450px]">
         <h2 className="font-bold self-center text-center md:text-2xl text-lg  mb-9">
           Welcome Back! Sign in to continue
         </h2>
-        <div class="mb-4">
+        <div className="mb-4">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
-            for="username"
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="username"
           >
             Username
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="text"
             name="username"
@@ -44,15 +44,15 @@ export default function LoginComp(props) {
             placeholder="Username"
           />
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
-            for="password"
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
           >
             Password
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             name="password"
             value={formData.password}
@@ -61,13 +61,13 @@ export default function LoginComp(props) {
             placeholder="******************"
           />
           <p className="text-red-400 font-medium text-[14px] mt-2">{message}</p>
-          <button class="inline-block align-baseline font-bold text-gray-500 hover:text-blue-800 mt-4 text-xs">
+          <button className="inline-block align-baseline font-bold text-gray-500 hover:text-blue-800 mt-4 text-xs">
             Forgot Password?
           </button>
         </div>
-        <div class="flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <button
-            class="bg-gradient-to-r from-[#2663B3] to-[#57ADD5] text-white  border-[#2663B3] w-full border-1 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+            className="bg-gradient-to-r from-[#2663B3] to-[#57ADD5] text-white  border-[#2663B3] w-full border-1 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
             type="button"
             onClick={handleSubmit}
           >
@@ -76,7 +76,8 @@ export default function LoginComp(props) {
         </div>
 
         <button
-          class=" align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4"
+          className=" align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4"
+          // eslint-disable-next-line react/prop-types
           onClick={() => props.setIsLogin(false)}
         >
           New User? Create Account
