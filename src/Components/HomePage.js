@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { gsap } from "gsap";
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
@@ -12,7 +14,7 @@ export default function HomePage() {
   const ref = useRef([]);
   const [bookdata, setBookData] = useState([]);
   const [bookdatabyGenre, setBookDataByGenre] = useState([]);
-  const [randomNum, setrandomNum] = useState(0);
+  // const [randomNum, setrandomNum] = useState(0);
   const [randomNum1, setrandomNum1] = useState(0);
   const [selectedGenre, setSelectedGenre] = useState("Horror");
   const [isLogin, setIsLogin] = useState(true);
@@ -186,9 +188,13 @@ export default function HomePage() {
               <option value="Horror">Horror</option>
               <option value="Fantasy">Fantasy</option>
               <option value="Romance">Romance</option>
+              <option value="Fantasy Romance">Fantasy Romance</option>
+              <option value="Science Fiction">Science Fiction</option>
+              <option value="Historical Fiction">Historical Fiction</option>
               <option value="Fiction">Fiction</option>
               <option value="Mystery">Mystery</option>
               <option value="Thriller">Thriller</option>
+              <option value="Non Fiction">Non Fiction</option>
             </select>
           </div>
           <div

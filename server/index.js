@@ -85,7 +85,7 @@ const getBooks = async () => {
   try {
     // using async-await to get the data from the URL
     const response = await axios.get(
-      "https://hapi-books.p.rapidapi.com/nominees/Suspense/2021",
+      "https://hapi-books.p.rapidapi.com/nominees/historical-fiction/2023",
       {
         headers: {
           "X-RapidAPI-Key": hapibooksapiKey,
@@ -93,14 +93,14 @@ const getBooks = async () => {
         },
       }
     );
-    console.log(response);
+    console.log(response.data);
     for (let i = 0; i < response.data.length; i++) {
       const post = new Book({
         name: response.data[i]["name"],
         cover: response.data[i]["cover"],
         bookid: response.data[i]["book_id"],
         author: response.data[i]["author"],
-        genre: "Mystery & Thriller",
+        genre: "Historical Fiction",
       });
       post
         .save()
@@ -150,9 +150,6 @@ async function fetchBook(title, author) {
   const dbQuery = {
     title: new RegExp(`^${title}$`, "i"),
   };
-  // if (author) {
-  //   dbQuery.authors = { $in: [new RegExp(author, "i")] };
-  // }
 
   const existingBook = await CachedBook.findOne(dbQuery);
   if (existingBook) {
@@ -208,40 +205,40 @@ async function fetchBook(title, author) {
   return savedBook;
 }
 
-const getNewBooks = async () => {
-  try {
-    // using async-await to get the data from the URL
-    const response = await axios.get(
-      "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&orderBy=newest&maxResults=10&key=AIzaSyDe8Rz-e1Rc6OM4GUTFdQBhhEZ1sX2dz8w"
-    );
-    console.log(response);
-    for (let i = 0; i < response.items.length; i++) {
-      const post = new Book({
-        name: response.data[i]["name"],
-        cover: response.data[i]["cover"],
-        bookid: response.data[i]["book_id"],
-        author: response.data[i]["author"],
-        genre: "",
-      });
-      post
-        .save()
-        .then(() => {
-          // res.send("Successfully saved form data to the database");
-          console.log("Sucess");
-        })
-        .catch((error) => {
-          console.error(error);
-          //  res.send("Error saving form data to the database");
-        });
-    }
-  } catch (err) {
-    if (err.response) {
-      console.log(err.response.status);
-      console.log(err.response.statusText);
-      console.log(err.response.data);
-    }
-  }
-};
+// const getNewBooks = async () => {
+//   try {
+//     // using async-await to get the data from the URL
+//     const response = await axios.get(
+//       "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&orderBy=newest&maxResults=10&key=AIzaSyDe8Rz-e1Rc6OM4GUTFdQBhhEZ1sX2dz8w"
+//     );
+//     console.log(response);
+//     for (let i = 0; i < response.items.length; i++) {
+//       const post = new Book({
+//         name: response.data[i]["name"],
+//         cover: response.data[i]["cover"],
+//         bookid: response.data[i]["book_id"],
+//         author: response.data[i]["author"],
+//         genre: "",
+//       });
+//       post
+//         .save()
+//         .then(() => {
+//           // res.send("Successfully saved form data to the database");
+//           console.log("Sucess");
+//         })
+//         .catch((error) => {
+//           console.error(error);
+//           //  res.send("Error saving form data to the database");
+//         });
+//     }
+//   } catch (err) {
+//     if (err.response) {
+//       console.log(err.response.status);
+//       console.log(err.response.statusText);
+//       console.log(err.response.data);
+//     }
+//   }
+// };
 
 const insertUser = async (req, res) => {
   const { username, password } = req.body;
@@ -307,7 +304,8 @@ const GetBooksFromHardcover = async (bookname) => {
 };
 // ...existing code...
 
-// GetBooksFromHardcover("Beach Read");
+// GetBooksFromHardcover("Beach Read");g
+// getBooks();
 
 // ---------------------------------------------- api endpoints ----------------------------------------------
 app.use(cors());
