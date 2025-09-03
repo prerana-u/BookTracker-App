@@ -83,7 +83,7 @@ export default function BookComp({ name, cover, genre, author, id }) {
       <div className={` transition-opacity duration-500 ease-in-out `}>
         <div
           className={`absolute inset-0 z-20 flex items-center justify-center transition-all duration-500 ease-in-out 
-          ${hovered ? "top-5 scale-[60%]" : "top-52 opacity-100 scale-100"}
+          ${hovered ? "top-0 scale-[60%]" : "top-2 opacity-100 scale-100"}
         `}
           id={id}
         >

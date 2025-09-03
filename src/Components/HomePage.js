@@ -9,7 +9,16 @@ import axios from "axios";
 import LoginComp from "./LoginComp";
 import SignInComp from "./SignUpComp";
 import NavBar from "./NavBar";
-
+import horrorIcon from "../Resources/Icons/horrorIcon.png";
+import romanceIcon from "../Resources/Icons/romanceIcon.png";
+import fantasyIcon from "../Resources/Icons/fantasyIcon.png";
+import fictionIcon from "../Resources/Icons/fictionIcon.png";
+import mysteryIcon from "../Resources/Icons/mysteryIcon.png";
+import thrillerIcon from "../Resources/Icons/thrillerIcon.png";
+import scienceFictionIcon from "../Resources/Icons/scienceFictionIcon.png";
+import historicalFictionIcon from "../Resources/Icons/historicalFictionIcon.png";
+import nonFictionIcon from "../Resources/Icons/nonFictionIcon.png";
+import DropDown from "./CommonComponents/DropDown";
 export default function HomePage() {
   const ref = useRef([]);
   const [bookdata, setBookData] = useState([]);
@@ -19,6 +28,30 @@ export default function HomePage() {
   const [selectedGenre, setSelectedGenre] = useState("Horror");
   const [isLogin, setIsLogin] = useState(true);
 
+  const options = [
+    { value: "horror", label: "Horror", image: horrorIcon },
+    { value: "romance", label: "Romance", image: romanceIcon },
+    { value: "fantasy", label: "Fantasy", image: fantasyIcon },
+    { value: "fiction", label: "Fiction", image: fictionIcon },
+    { value: "mystery", label: "Mystery", image: mysteryIcon },
+    { value: "thriller", label: "Thriller", image: thrillerIcon },
+    {
+      value: "science fiction",
+      label: "Science Fiction",
+      image: scienceFictionIcon,
+    },
+    {
+      value: "historical fiction",
+      label: "Historical Fiction",
+      image: historicalFictionIcon,
+    },
+    { value: "non fiction", label: "Non Fiction", image: nonFictionIcon },
+    { value: "fantasy romance", label: "Fantasy Romance", image: romanceIcon },
+  ];
+
+  const handleSelect = (option) => {
+    console.log("Selected:", option);
+  };
   ref.current = [];
   //Register Scroll Trigger
   gsap.registerPlugin(ScrollTrigger);
@@ -118,48 +151,50 @@ export default function HomePage() {
           }}
         >
           <NavBar />
-
-          <h2
-            className="text-white text-lg leading-9 sm:text-[44px] sm:leading-relaxed font-bold text-center px-6 w-[400px] sm:w-[600px] md:w-[650px] mt-20 sm:mt-32 ml-6 sm:ml-12 md:ml-16 lg:ml-20 xl:ml-24 2xl:ml-28"
-            style={{
-              textShadow: "7px 7px 4px rgba(0, 0, 0, 0.88)",
-            }}
-          >
-            Discover, Connect, and Explore the World of{" "}
-            <span className="text-[#13B1DF]"> Books </span>
-          </h2>
-
-          <div className="flex items-center bg-white border-4 border-[#1282A2] rounded-[6px] px-3 py-2 w-full max-w-md   ml-6 sm:ml-12 md:ml-16 lg:ml-20 xl:ml-24 2xl:ml-52 mt-8">
-            <input
-              type="text"
-              placeholder="Search books..."
-              className="flex-grow bg-transparent outline-none text-black placeholder-gray-400"
-            />
-            <svg
-              className="w-5 h-5 text-[#1282A2] ml-2"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
+          <div className=" absolute mt-20 sm:mt-32 ml-6 sm:ml-12 md:ml-16 lg:mx-auto xl:ml-28 2xl:ml-28 flex flex-col items-center justify-center">
+            <h2
+              className="text-white text-lg leading-9 sm:text-[44px] sm:leading-relaxed font-bold text-center px-6 w-[400px] sm:w-[600px] md:w-[650px] "
+              style={{
+                textShadow: "7px 7px 4px rgba(0, 0, 0, 0.88)",
+              }}
             >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
+              Discover, Connect, and Explore the World of{" "}
+              <span className="text-[#13B1DF]"> Books </span>
+            </h2>
+            <div className="flex items-center bg-white border-4 border-[#1282A2] rounded-[6px] px-3 py-2 w-full max-w-md mt-8">
+              <input
+                type="text"
+                placeholder="Search books..."
+                className="flex-grow bg-transparent outline-none text-black placeholder-gray-400"
+              />
+              <svg
+                className="w-5 h-5 text-[#1282A2] ml-2"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
           </div>
 
-          {isLogin ? (
-            <LoginComp setIsLogin={setIsLogin} />
-          ) : (
-            <SignInComp setIsLogin={setIsLogin} />
-          )}
+          <div className="absolute mt-20 sm:mt-32 lg:mt-10 lg:right-5 xl:right-20 ">
+            {isLogin ? (
+              <LoginComp setIsLogin={setIsLogin} />
+            ) : (
+              <SignInComp setIsLogin={setIsLogin} />
+            )}
+          </div>
         </div>
         <div id="hero">
-          <h2 className="font-bold text-3xl text-black ml-3 mt-11 md:text-4xl md:ml-11">
+          <h2 className="font-bold text-3xl text-black ml-3 mt-11 md:text-4xl md:ml-11 mb-20">
             What will you read next?
           </h2>
 
           <div
-            className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] mt-10"
+            className="grid lg:grid-cols-2 xl:grid-cols-4 lg:grid-rows-2 lg:gap-x-4  xl:gap-4  md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] align-middle mx-3 md:mx-11"
             id="book"
           >
             {bookdata.map((data, index) => {
@@ -176,29 +211,21 @@ export default function HomePage() {
             })}
           </div>
         </div>
-        <div id="topbooks" className="bg-[#003D74]">
+        {/* <div id="topbooks" className="bg-[#003D74]">
           <div className="flex px-5 pl-12 mb-4">
-            <h2 className="font-bold text-3xl text-white  lg:mt-16 mt-[1200px] md:text-4xl ">
+            <h2 className="font-bold text-3xl text-white  lg:mt-16 mt-[1200px] md:text-4xl mb-24 ">
               Top Books By Genre
             </h2>
-            <select
-              className="w-[200px] h-[40px] p-2 rounded-md bg-[#ffffff] border-solid border border-black text-black  text-lg ml-auto lg:mt-16"
-              onChange={(e) => setSelectedGenre(e.target.value)}
-            >
-              <option value="Horror">Horror</option>
-              <option value="Fantasy">Fantasy</option>
-              <option value="Romance">Romance</option>
-              <option value="Fantasy Romance">Fantasy Romance</option>
-              <option value="Science Fiction">Science Fiction</option>
-              <option value="Historical Fiction">Historical Fiction</option>
-              <option value="Fiction">Fiction</option>
-              <option value="Mystery">Mystery</option>
-              <option value="Thriller">Thriller</option>
-              <option value="Non Fiction">Non Fiction</option>
-            </select>
+            <div className="flex items-center ml-auto lg:mt-16 mt-[1200px]">
+              <DropDown
+                options={options}
+                onSelect={(option) => setSelectedGenre(option.label)}
+                placeholder="Choose a Genre"
+              />
+            </div>
           </div>
           <div
-            className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-4 md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] mt-10"
+            className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-x-4 lg:gap-y-[700px] md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] mt-10"
             id="book1"
           >
             {bookdatabyGenre.slice(randomNum1, randomNum1 + 4).map((data) => {
@@ -215,7 +242,7 @@ export default function HomePage() {
               );
             })}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

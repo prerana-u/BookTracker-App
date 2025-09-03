@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
+import React from "react";
 export default function SignInComp(props) {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [password, setPassword] = useState("");
@@ -47,7 +49,7 @@ export default function SignInComp(props) {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="username"
+            htmlFor="username"
           >
             Create New Username
           </label>
@@ -64,7 +66,7 @@ export default function SignInComp(props) {
         <div className="mb-6">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="password"
+            htmlFor="password"
           >
             Create Password
           </label>
@@ -85,7 +87,7 @@ export default function SignInComp(props) {
                   </a> */}
           <label
             className="block text-gray-700 text-sm font-bold mb-2 mt-6"
-            for="password"
+            htmlFor="password"
           >
             Confirm Password
           </label>

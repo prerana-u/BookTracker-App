@@ -85,7 +85,7 @@ const getBooks = async () => {
   try {
     // using async-await to get the data from the URL
     const response = await axios.get(
-      "https://hapi-books.p.rapidapi.com/nominees/historical-fiction/2023",
+      "https://hapi-books.p.rapidapi.com/nominees/horror/2017",
       {
         headers: {
           "X-RapidAPI-Key": hapibooksapiKey,
@@ -100,7 +100,7 @@ const getBooks = async () => {
         cover: response.data[i]["cover"],
         bookid: response.data[i]["book_id"],
         author: response.data[i]["author"],
-        genre: "Historical Fiction",
+        genre: "Horror",
       });
       post
         .save()
