@@ -80,10 +80,12 @@ export default function BookComp({ name, cover, genre, author, id }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className={` transition-opacity duration-500 ease-in-out `}>
+      <div
+        className={` transition-opacity duration-500 ease-in-out h-full flex items-start justify-center`}
+      >
         <div
-          className={`absolute inset-0 z-20 flex items-center justify-center transition-all duration-500 ease-in-out 
-          ${hovered ? "top-0 scale-[60%]" : "top-2 opacity-100 scale-100"}
+          className={`absolute inset-0 z-20 flex items-start justify-center transition-all duration-500 ease-in-out 
+          ${hovered ? "top-0 scale-[60%]" : "top-0 opacity-100 scale-100"}
         `}
           id={id}
         >
@@ -91,12 +93,12 @@ export default function BookComp({ name, cover, genre, author, id }) {
             src={cover}
             id="coverimg"
             alt={name ? `Cover of ${name}` : "Book cover"}
-            className="absolute z-1 lg:w-[250px] lg:h-[350px]  z-20 lg:left-12 left-20 w-[150px] h-[250px]"
+            className="absolute z-1 md:w-[250px] md:h-[350px]  z-20 md:left-12 left-9 w-[200px] h-[250px]"
           />
           <img
             src={pages}
             alt={name ? `Cover of ${name}` : "Book cover"}
-            className="absolute lg:w-[250px] lg:h-[352px] z-10  lg:left-[62px] w-[150px] h-[252px] left-[137px]"
+            className="absolute md:w-[250px] md:h-[352px] z-10  md:left-[62px] w-[200px] h-[252px] left-[50px]"
           />
           {/* <img
             src={book_base}
@@ -109,7 +111,7 @@ export default function BookComp({ name, cover, genre, author, id }) {
             hovered ? "opacity-100" : "opacity-0"
           } text-center`}
         >
-          <div className="lg:w-[330px] lg:h-[380px] w-[230px] h-[330px] absolute mb-14 top-[150px] z-[-1] left-2 bg-[#ffffff] border border-[#0E418D] shadow rounded-lg">
+          <div className="md:w-[330px] md:h-[380px] w-[300px] h-[330px] absolute mb-14 top-[120px] z-[-1] left-2 bg-[#ffffff] border border-[#0E418D] shadow rounded-lg">
             <p
               id="title"
               className="text-[22px] font-bold text-center lg:mt-32 mt-24 text-[#0E418D]"
@@ -136,7 +138,7 @@ export default function BookComp({ name, cover, genre, author, id }) {
             </div>
 
             <div className="scrollable-div text-sm text-black text-justify p-[20px]">
-              <div className="lg:w-[300px] w-[200px] overflow-y-auto h-[100px] pr-4">
+              <div className="md:w-[300px] w-[260px] overflow-y-auto h-[100px] pr-4">
                 {desc}
               </div>
             </div>

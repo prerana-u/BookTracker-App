@@ -42,7 +42,7 @@ export default function SignInComp(props) {
 
   return (
     <div className=" flex justify-center xl:absolute xl:top-20 xl:left-[950px]">
-      <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-2 mb-4 h-[440px] w-[350px] md:h-[490px]  min-[320px]:h-[41px] min-[320px]:w-[300px] md:w-[450px]">
+      <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-2 mb-4 h-[400px] sm:w-[380px] md:h-[430px] min-[320px]:w-[300px] md:w-[450px]">
         <h2 className="font-bold self-center text-center md:text-2xl text-lg  mb-9">
           Join us to discover a wide range of books!
         </h2>

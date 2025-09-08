@@ -23,7 +23,7 @@ export default function LoginComp(props) {
   };
   return (
     <div className=" flex justify-center ">
-      <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 h-[400px] w-[350px] md:h-[430px]  min-[320px]:h-[400px] min-[320px]:w-[300px] md:w-[450px]">
+      <form className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 h-[400px] sm:w-[380px] md:h-[430px] min-[320px]:w-[300px] md:w-[450px]">
         <h2 className="font-bold self-center text-center md:text-2xl text-lg  mb-9">
           Welcome Back! Sign in to continue
         </h2>

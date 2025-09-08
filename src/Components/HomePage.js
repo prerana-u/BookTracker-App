@@ -142,7 +142,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="flex-initial relative">
+      <div className="flex-initial relative md:d-flex md:flex-column">
         <div
           className="bg-cover bg-no-repeat bg-center "
           style={{
@@ -151,7 +151,7 @@ export default function HomePage() {
           }}
         >
           <NavBar />
-          <div className=" absolute mt-20 sm:mt-32 ml-6 sm:ml-12 md:ml-16 lg:mx-auto xl:ml-28 2xl:ml-28 flex flex-col items-center justify-center">
+          <div className=" lg:absolute  mt-20 sm:mt-32 ml-6 sm:ml-12 md:ml-16 lg:mx-auto xl:ml-28 2xl:ml-28 flex flex-col items-center justify-center">
             <h2
               className="text-white text-lg leading-9 sm:text-[44px] sm:leading-relaxed font-bold text-center px-6 w-[400px] sm:w-[600px] md:w-[650px] "
               style={{
@@ -180,7 +180,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="absolute mt-20 sm:mt-32 lg:mt-10 lg:right-5 xl:right-20 ">
+          <div className="absolute  top-[100%] mt-16 left-0 right-0 lg:left-auto  lg:top-5 lg:right-5 xl:right-20  ">
             {isLogin ? (
               <LoginComp setIsLogin={setIsLogin} />
             ) : (
@@ -188,61 +188,66 @@ export default function HomePage() {
             )}
           </div>
         </div>
-        <div id="hero">
-          <h2 className="font-bold text-3xl text-black ml-3 mt-11 md:text-4xl md:ml-11 mb-20">
-            What will you read next?
-          </h2>
 
-          <div
-            className="grid lg:grid-cols-2 xl:grid-cols-4 lg:grid-rows-2 lg:gap-x-4  xl:gap-4  md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] align-middle mx-3 md:mx-11"
-            id="book"
-          >
-            {bookdata.map((data, index) => {
-              return (
-                <>
-                  <BookComp
-                    name={data.name}
-                    author={data.author}
-                    cover={data.cover}
-                    genre={data.genre}
-                  />
-                </>
-              );
-            })}
+        {/*  */}
+      </div>
+      <div
+        id="hero"
+        className="xl:h-[700px] md:h-[1300px] md:mt-[65%] mt-[85%] lg:mt-0"
+      >
+        <h2 className="font-bold text-3xl +text-black ml-3 mt-11 md:text-4xl md:ml-11 mb-20">
+          What will you read next?
+        </h2>
+
+        <div
+          className="grid md:grid-cols-2 xl:grid-cols-4 md:grid-rows-2 xl:grid-rows-1 md:gap-x-4  xl:gap-4  md:gap-y-[600px] grid-cols-1 grid-rows-3 gap-y-[600px] align-middle mx-3 md:mx-11"
+          id="book"
+        >
+          {bookdata.map((data, index) => {
+            return (
+              <>
+                <BookComp
+                  name={data.name}
+                  author={data.author}
+                  cover={data.cover}
+                  genre={data.genre}
+                />
+              </>
+            );
+          })}
+        </div>
+      </div>
+      <div id="topbooks" className="bg-[#003D74] xl:h-[750px] md:h-[1300px]">
+        <div className="flex px-5 pl-12 mb-4">
+          <h2 className="font-bold text-3xl text-white  lg:mt-16 mt-[1200px] md:text-4xl mb-16 ">
+            Top Books By Genre
+          </h2>
+          <div className="flex items-start ml-auto lg:mt-16 mt-[1200px]">
+            <DropDown
+              options={options}
+              onSelect={(option) => setSelectedGenre(option.label)}
+              placeholder="Choose a Genre"
+            />
           </div>
         </div>
-        {/* <div id="topbooks" className="bg-[#003D74]">
-          <div className="flex px-5 pl-12 mb-4">
-            <h2 className="font-bold text-3xl text-white  lg:mt-16 mt-[1200px] md:text-4xl mb-24 ">
-              Top Books By Genre
-            </h2>
-            <div className="flex items-center ml-auto lg:mt-16 mt-[1200px]">
-              <DropDown
-                options={options}
-                onSelect={(option) => setSelectedGenre(option.label)}
-                placeholder="Choose a Genre"
-              />
-            </div>
-          </div>
-          <div
-            className="grid lg:grid-cols-4 lg:grid-rows-2 lg:gap-x-4 lg:gap-y-[700px] md:gap-y-[700px] grid-cols-1 grid-rows-3 gap-y-[600px] h-[85vh] mt-10"
-            id="book1"
-          >
-            {bookdatabyGenre.slice(randomNum1, randomNum1 + 4).map((data) => {
-              return (
-                <>
-                  <BookComp
-                    className="place-items-center"
-                    name={data.name}
-                    cover={data.cover}
-                    genre={data.genre}
-                    author={data.author}
-                  />
-                </>
-              );
-            })}
-          </div>
-        </div> */}
+        <div
+          className="grid md:grid-cols-2 xl:grid-cols-4 md:grid-rows-2 xl:grid-rows-1 md:gap-x-4  xl:gap-4  md:gap-y-[600px] grid-cols-1 grid-rows-3 gap-y-[600px] align-middle mx-3 md:mx-11"
+          id="book1"
+        >
+          {bookdatabyGenre.slice(randomNum1, randomNum1 + 4).map((data) => {
+            return (
+              <>
+                <BookComp
+                  className="place-items-center"
+                  name={data.name}
+                  cover={data.cover}
+                  genre={data.genre}
+                  author={data.author}
+                />
+              </>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
