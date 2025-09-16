@@ -219,10 +219,10 @@ export default function HomePage() {
       </div>
       <div id="topbooks" className="bg-[#003D74] xl:h-[750px] md:h-[1300px]">
         <div className="flex px-5 pl-12 mb-4">
-          <h2 className="font-bold text-3xl text-white  lg:mt-16 mt-[1200px] md:text-4xl mb-16 ">
+          <h2 className="font-bold text-3xl text-white  lg:mt-16 mt-16 md:text-4xl mb-16 ">
             Top Books By Genre
           </h2>
-          <div className="flex items-start ml-auto lg:mt-16 mt-[1200px]">
+          <div className="flex items-start ml-auto lg:mt-16 mt-16">
             <DropDown
               options={options}
               onSelect={(option) => setSelectedGenre(option.label)}

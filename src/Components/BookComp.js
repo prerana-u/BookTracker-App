@@ -139,7 +139,7 @@ export default function BookComp({ name, cover, genre, author, id }) {
 
             <div className="scrollable-div text-sm text-black text-justify p-[20px]">
               <div className="md:w-[300px] w-[260px] overflow-y-auto h-[100px] pr-4">
-                {desc}
+                {desc ? desc : "Description not available."}
               </div>
             </div>
           </div>
