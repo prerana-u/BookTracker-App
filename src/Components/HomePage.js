@@ -19,6 +19,7 @@ import scienceFictionIcon from "../Resources/Icons/scienceFictionIcon.png";
 import historicalFictionIcon from "../Resources/Icons/historicalFictionIcon.png";
 import nonFictionIcon from "../Resources/Icons/nonFictionIcon.png";
 import DropDown from "./CommonComponents/DropDown";
+import Searchbar from "./CommonComponents/Searchbar";
 export default function HomePage() {
   const ref = useRef([]);
   const [bookdata, setBookData] = useState([]);
@@ -161,22 +162,8 @@ export default function HomePage() {
               Discover, Connect, and Explore the World of{" "}
               <span className="text-[#13B1DF]"> Books </span>
             </h2>
-            <div className="flex items-center bg-white border-4 border-[#1282A2] rounded-[6px] px-3 py-2 w-full max-w-md mt-8">
-              <input
-                type="text"
-                placeholder="Search books..."
-                className="flex-grow bg-transparent outline-none text-black placeholder-gray-400"
-              />
-              <svg
-                className="w-5 h-5 text-[#1282A2] ml-2"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
+            <div className="w-full flex justify-center h-[60px] max-w-md mt-8">
+              <Searchbar />
             </div>
           </div>
 
