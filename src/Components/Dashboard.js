@@ -60,7 +60,7 @@ const Dashboard = () => {
       <main>
         <section className="bg-[#D5F1F9] h-fit p-10 ">
           <div className="flex flex-col gap-3 h-full">
-            <p className="text-2xl text-[#0E418D] font-semibold">
+            <p className="text-4xl text-[#0E418D] font-semibold">
               Welcome Prerana
             </p>
             <NoBooksFound />

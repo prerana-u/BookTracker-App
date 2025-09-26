@@ -12,12 +12,12 @@ function NoBooksFound() {
           Read
         </h2>
       </div>
-      <div>
+      <div className="-mt-[50px]">
         {" "}
         <img
           src={nobooksfound}
           alt="No Books Found"
-          className="w-[420px] h-[260px] ml-10"
+          className="w-[500px] h-[300px] ml-10"
         />
       </div>
 
